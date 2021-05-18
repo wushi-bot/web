@@ -8,5 +8,5 @@ app.get('/', async (req, res) => {
 
 const server = http.createServer(app)
 server.listen(process.env.PORT, () => {
-  console.log('SErver started listening on port ', process.env.PORT)
+  console.log('Server started listening on port ', process.env.PORT)
 })
