@@ -1,0 +1,15 @@
+{
+    "name": "wushi!",
+    "short_name": "wushi!",
+    "icons": [
+        {
+            "src": "/android-chrome-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#99cfff",
+    "background_color": "#99cfff",
+    "display": "standalone",
+    "orientation": "portrait"
+}
