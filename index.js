@@ -1,6 +1,7 @@
 const http = require('http')
 const express = require('express')
 const path = require('path')
+const request = require('@aero/centra')
 const passport = require('passport')
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -61,11 +62,47 @@ passport.deserializeUser((obj, done) => done(null, obj))
 
 app.get('/', async (req, res) => {
   let avatar
+  let response
+  if (req.isAuthenticated()) {
+    let userAvy = req.user || null
+    avatar = 'https://cdn.discordapp.com/avatars/' + userAvy.id + '/' + userAvy.avatar + '?size=128'
+    response = await request(process.env.API_URL + '/eco/' + userAvy.id)
+     .header('Authorization', process.env.AUTHORIZATION)
+     .json()
+  }
+  return res.render('index', { user: req.isAuthenticated() ? req.user : null, avatar: req.isAuthenticated() ? avatar : null, economy: res })
+})
+
+app.get('/commands', async (req, res) => {
+  let response
   if (req.isAuthenticated()) {
     let userAvy = req.user || null
     avatar = 'https://cdn.discordapp.com/avatars/' + userAvy.id + '/' + userAvy.avatar + '?size=128'
   }
-  return res.render('index', { user: req.isAuthenticated() ? req.user : null, avatar: req.isAuthenticated() ? avatar : null })
+  response = await request(process.env.API_URL + '/commands')
+    .header('Authorization', process.env.AUTHORIZATION)
+    .json()
+  return res.render('commands', { user: req.isAuthenticated() ? req.user : null, avatar: req.isAuthenticated() ? avatar : null, list: response.commands })
+})
+
+app.get('/vote', async (req, res) => {
+  if (req.isAuthenticated()) {
+    let userAvy = req.user || null
+    avatar = 'https://cdn.discordapp.com/avatars/' + userAvy.id + '/' + userAvy.avatar + '?size=128'
+  }
+  return res.render('vote', { user: req.isAuthenticated() ? req.user : null, avatar: req.isAuthenticated() ? avatar : null })
+})
+
+app.get('/community', async (req, res) => {
+  return res.redirect('https://discord.gg/zjqeYbNU5F')
+})
+
+app.get('/support', async (req, res) => {
+  return res.redirect('https://discord.gg/zjqeYbNU5F')
+})
+
+app.get('/invite', async (req, res) => {
+  return res.redirect('https://discord.com/api/oauth2/authorize?client_id=755526238466080830&permissions=3691375831&scope=bot')
 })
 
 app.get('/login', async (req, res, next) => {
