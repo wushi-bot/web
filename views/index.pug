@@ -1,0 +1,53 @@
+doctype html
+html
+  include includes/head.pug
+  title Home | wushi
+  body
+    nav.navbar.has-shadow.is-spaced(role="navigation", aria-label="main navigation")
+      div.container.is-fluid.is-navbar
+        a.navbar-brand(href="/", style="margin-right: 8px")
+            figure(class="image is-48x48")
+                img(class="image is-48x48", src="/assets/graphic.png")  
+        a.navbar-burger(role="button", data-target="navbar", aria-label="menu", aria-expanded="false")
+            span(aria-hidden="true")
+            span(aria-hidden="true")
+            span(aria-hidden="true")    
+        div.navbar-menu.is-active(id="navbar")
+          div.navbar-start
+              a.navbar-item(href="/invite") <i class="fas fa-user-plus"></i>&nbsp;Invite
+              a.navbar-item(href="/commands") <i class="fas fa-book"></i>&nbsp;Commands
+          div.navbar-end
+            a.navbar-item(href="/vote", style="margin-right: 8px") <i class="fas fa-check"></i>&nbsp;Vote
+            a.navbar-item(href="/community", style="margin-right: 12px") <i class="fab fa-discord"></i>&nbsp;Support Server
+            if user
+              span 
+              a.navbar-brand(href="/", style="margin-left: 6px")
+                figure(class="image is-48x48")
+                  img(class="is-rounded", src=avatar) 
+                a.navbar-item(href="#", style="margin-right: -22px") <strong>#{user.username}##{user.discriminator}</strong>
+            else
+              a.navbar-item.is-primary.button(href="/login") <i class="fab fa-discord"></i>&nbsp;Login with Discord
+
+    div(align="center")                  
+      section.hero.is-medium.is-primary.is-bold
+        .hero-body
+          .container
+            br
+            figure(class="image is-128x128 animated pulse", style="margin-bottom: -10px")
+                img(class="image", src="/assets/graphic.png") 
+            br
+            h1.title(style="font-weight: bold") <strong>wushi</strong>
+            h2.subtitle A sushi-themed social bot with a unique economy system.
+            if user 
+              a.button.is-link.is-light.is-medium(href="/invite", style="margin-right: 8px") <i class="fas fa-user-plus"></i>&nbsp;Invite
+              a.button.is-link.is-light.is-medium(href="/vote", style="margin-right: 8px") <i class="fas fa-check"></i>&nbsp;Vote 
+              a.button.is-link.is-light.is-medium(href="/commands") <i class="fas fa-book"></i>&nbsp;Commands  
+            else 
+              a.button.is-link.is-light.is-medium(href="/invite", style="margin-right: 8px") <i class="fas fa-user-plus"></i>&nbsp;Invite
+              a.button.is-link.is-light.is-medium(href="/support", style="margin-right: 8px") <i class="fab fa-discord"></i>&nbsp;Support Server  
+
+
+  footer.footer
+    div(align="center")
+      div.container
+        p <strong><a href="https://github.com/xMinota">Minota</a></strong> © 2020 - 2021     
